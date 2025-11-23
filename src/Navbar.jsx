@@ -56,7 +56,7 @@ const Navbar = () => {
                             <Link
                                 href={nav.href}
                                 className={`transition-colors duration-300 ${isActive(nav.href)
-                                    ? 'text-primary'
+                                    ? 'text-red-500'
                                     : 'text-gray-300 hover:text-primary'
                                 }`}
                             >
@@ -81,7 +81,7 @@ const Navbar = () => {
                 
                 <div className='hidden lg:block'>
                     <Link
-                        className='bg-primary hover:bg-primary/80 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
+                        className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
                         href={'/login'}
                     >
                         Login/Register
@@ -91,7 +91,7 @@ const Navbar = () => {
                 {/* Mobile Login/Register Button (moved here for consistency with desktop order) */}
                 <div className='lg:hidden'>
                     <Link
-                        className='bg-primary hover:bg-primary/80 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300'
+                        className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300'
                         href={'/login'}
                     >
                         Login/Register
