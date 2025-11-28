@@ -13,7 +13,7 @@ const Event = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/events")
+    fetch("https://nextevent-server.vercel.app/events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);

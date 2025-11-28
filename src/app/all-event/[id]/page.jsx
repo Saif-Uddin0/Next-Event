@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Loader from "../../../GlobalComponent/Loader";
 import Image from "next/image";
 import {
@@ -18,8 +18,21 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { useSession } from "next-auth/react";
+
 
 const EventDetails = () => {
+    const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // If still checking session
+  if (status === "loading") return <Loader />;
+
+  // If user is NOT logged in → redirect to login
+  if (!session) {
+    router.push("/login");
+    return null;
+  }
   const params = useParams();
   const { id } = params;
 
@@ -27,7 +40,7 @@ const EventDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/events/${id}`)
+    fetch(`https://nextevent-server.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setEvent(data);
@@ -254,7 +267,7 @@ const EventDetails = () => {
 
                 {event.registrationLink && (
                   <a
-                    href={event.registrationLink}
+                    
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-6 w-full flex items-center justify-center bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors duration-200 text-lg"

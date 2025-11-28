@@ -10,7 +10,7 @@ const TopEvents = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/events")
+        fetch("https://nextevent-server.vercel.app/events")
             .then((res) => res.json())
             .then((data) => {
                 setEvents(data);

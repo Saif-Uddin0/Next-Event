@@ -16,11 +16,16 @@ const Navbar =() => {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const navlinks = [
-        { href: '/', label: 'Home' },
-        { href: '/all-event', label: 'All Events' },
-        { href: '/add-event', label: 'Create Event' },
-        { href: '/manage-event', label: 'Mange Event' },
+    const navlinks = session?.user
+  ? [
+      { href: "/", label: "Home" },
+      { href: "/all-event", label: "All Events" },
+      { href: "/add-event", label: "Create Event" },
+      { href: "/manage-event", label: "Manage Event" },
+    ]
+  : [
+      { href: "/", label: "Home" },
+      { href: "/all-event", label: "All Events" },
     ];
 
     const isActive = (href) => href === pathname;

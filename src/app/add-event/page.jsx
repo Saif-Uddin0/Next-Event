@@ -96,7 +96,7 @@ const EventSubmissionForm = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/events", {
+      const res = await fetch("https://nextevent-server.vercel.app/events", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataToSend),

@@ -37,7 +37,7 @@ const ProductListTable = () => {
             return;
         }
 
-        fetch('http://localhost:5000/events')
+        fetch('https://nextevent-server.vercel.app/events')
             .then((res) => res.json())
             .then((data) => {
                 const userEvents = data.filter((e) => e.organizerEmail === session.user.email);
@@ -62,7 +62,7 @@ const ProductListTable = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/events/${id}`, {
+                fetch(`https://nextevent-server.vercel.app/events/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
