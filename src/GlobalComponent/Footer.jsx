@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-800 text-gray-300 py-12 mt-20 border-t border-gray-700">
+        <footer className="bg-gray-800 text-gray-300 py-12  border-t border-gray-700">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
                 {/* Brand and Social */}

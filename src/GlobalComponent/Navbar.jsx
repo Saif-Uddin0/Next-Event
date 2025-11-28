@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Image from 'next/image';
 import { motion, AnimatePresence } from "framer-motion";
 import Link from 'next/link';
@@ -6,7 +6,13 @@ import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { IoClose, IoMenu } from "react-icons/io5";
 
-const Navbar = () => {
+import { signOut, useSession } from 'next-auth/react';
+
+
+
+const Navbar =() => {
+    const {data:session} = useSession()
+    console.log(session?.user)
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -80,22 +86,30 @@ const Navbar = () => {
 
                 
                 <div className='hidden lg:block'>
-                    <Link
+                    {session?.user?<button onClick={()=> signOut()}
+                        className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
+                    >
+                        Logout
+                    </button> :<Link
                         className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
                         href={'/login'}
                     >
                         Login/Register
-                    </Link>
+                    </Link>}
                 </div>
 
                 {/* Mobile Login/Register Button (moved here for consistency with desktop order) */}
                 <div className='lg:hidden'>
-                    <Link
-                        className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300'
+                    {session?.user?<button onClick={()=> signOut()}
+                        className='btn btn-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
+                    >
+                        Logout
+                    </button> :<Link
+                        className='bg-primary hover:bg-red-700 border-0 text-white font-semibold px-5 py-3 rounded-md transition-colors duration-300 '
                         href={'/login'}
                     >
                         Login/Register
-                    </Link>
+                    </Link>}
                 </div>
             </div>
 

@@ -1,36 +1,59 @@
+
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const CountdownTimer = ({ dateTimeString }) => {
+const CountdownTimer = ({ targetDate }) => {
+    const calculateTimeLeft = () => {
+        const now = new Date();
+        const target = new Date(targetDate);
+        const difference = +target - +now; 
+        let timeLeft = {};
 
-    if (!dateTimeString) return null;
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60),
+            };
+        } else {
+            timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        }
+        return timeLeft;
+    };
 
-    const eventDate = new Date(dateTimeString);
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-    // Date formatting
-    const formattedDate = eventDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearTimeout(timer);
     });
 
-    // Time formatting
-    const formattedTime = eventDate.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
+    const timerComponents = [];
+
+    Object.keys(timeLeft).forEach((interval, index) => {
+        
+        if (timeLeft[interval] > 0 || (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0)) {
+            timerComponents.push(
+                <div key={interval} className="flex flex-col items-center mx-1 md:mx-2 text-white">
+                    <span className="text-2xl md:text-4xl font-bold">{String(timeLeft[interval]).padStart(2, '0')}</span>
+                    <span className="text-xs md:text-sm uppercase">{interval}</span>
+                </div>
+            );
+        }
     });
+
 
     return (
-        <div className="flex flex-col items-center backdrop-blur-md bg-black/20 px-4 py-2 sm:px-5 sm:py-3 rounded-full border border-white/10">
-            <span className="text-base sm:text-xl md:text-3xl font-bold text-white leading-tight">
-                {formattedDate}
-            </span>
-            <span className="text-sm sm:text-lg md:text-2xl font-semibold text-white">
-                {formattedTime}
-            </span>
+        <div className="flex justify-center items-center backdrop-blur-sm bg-black/40 p-3 md:p-4 rounded-lg">
+            {timerComponents.some(c => c !== null && c.props.children[0].props.children > 0)
+                ? timerComponents
+                : <span className="text-white text-lg md:text-xl font-semibold">Event Live!</span>
+            }
         </div>
     );
 };

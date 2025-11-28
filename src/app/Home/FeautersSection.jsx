@@ -2,81 +2,83 @@
 "use client"
 import React from 'react';
 import Link from 'next/link';
+// FIX: Assuming you installed lucide-react, import from the correct package
+import { CalendarDays, MapPin, Music, User } from 'lucide-react'; 
+// Note: You must run 'npm install lucide-react' if you haven't already.
+
 
 // Dummy data for the feature items
 const featuresData = [
     {
         id: 'feat-1',
-        icon: '📅', // Placeholder icon. Replace with actual icons (e.g., from React Icons)
+        icon: <CalendarDays size={40} />,
         title: '7/24 EVENT AVAILABLE',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit.',
+        // --- UPDATED DESCRIPTION ---
+        description: 'Access and book events anytime, day or night. Our platform provides continuous availability and real-time updates.',
+        // ---------------------------
         link: '/features/availability'
     },
     {
         id: 'feat-2',
-        icon: '📍', // Placeholder icon
+        icon: <MapPin size={40} />,
         title: 'GREAT LOCATIONS',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit.',
+        // --- UPDATED DESCRIPTION ---
+        description: 'Discover world-class venues and iconic destinations. We handpick locations that enhance your event experience.',
+        // ---------------------------
         link: '/features/locations'
     },
     {
         id: 'feat-3',
-        icon: '👤', // Placeholder icon
+        icon: <User size={40} />,
         title: 'MORE THAN 200 SPEAKERS',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit.',
+        // --- UPDATED DESCRIPTION ---
+        description: 'Engage with top industry leaders, innovators, and thought-provokers from across the globe.',
+        // ---------------------------
         link: '/features/speakers'
     },
     {
         id: 'feat-4',
-        icon: '🎵', // Placeholder icon
+        icon: <Music size={40} />,
         title: 'LETS PARTY AFTER EVENT',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit.',
+        // --- UPDATED DESCRIPTION ---
+        description: 'Extend the networking and fun! Join our exclusive after-parties to connect and unwind with attendees and speakers.',
+        // ---------------------------
         link: '/features/after-party'
     },
 ];
 
 const FeaturesSection = () => {
     return (
-        <section className="py-20 bg-gray-100">
+        <section className="py-30 bg-primary/90">
             <div className="container mx-auto px-4">
-                {/* No main title for this section based on the image, but you can add one */}
-                {/* <h2 className="text-4xl font-bold text-center text-gray-800 mb-16">Why Choose Us?</h2> */}
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     {featuresData.map(feature => (
                         <div key={feature.id} className="flex flex-col items-center p-4">
                             {/* Hexagon icon container */}
                             <div className="relative w-28 h-28 mb-6">
-                                {/* Base hexagon shape */}
-                                <div className="absolute inset-0 bg-gray-400 hexagon flex items-center justify-center">
-                                    <span className="text-5xl text-white">{feature.icon}</span>
+                                {/* Base hexagon shape now relies on global CSS */}
+                                <div className="absolute inset-0 bg-accent hexagon flex items-center justify-center">
+                                    {/* Removed text-5xl from span and moved icon size to the prop */}
+                                    <span className="text-gray-700">
+                                        {feature.icon} 
+                                    </span>
                                 </div>
                             </div>
 
-                            <h3 className="text-lg font-semibold text-gray-800 uppercase mb-2">
+                            <h3 className="text-lg font-semibold text-white  uppercase mb-2">
                                 {feature.title}
                             </h3>
                             <div className="w-12 h-1 bg-red-500 mb-4"></div> {/* Red underline */}
-                            <p className="text-gray-600 mb-6 max-w-xs">
+                            <p className="text-gray-200 mb-6 max-w-xs">
                                 {feature.description}
                             </p>
-                            <Link
-                                href={feature.link}
-                                className="inline-block px-6 py-2 border border-gray-400 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-200 transition-colors duration-200"
-                            >
-                                DETAILS
-                            </Link>
+                            
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Tailwind CSS for the hexagon shape */}
-            <style jsx>{`
-                .hexagon {
-                    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-                }
-            `}</style>
+            {/* REMOVED: <style jsx> block */}
         </section>
     );
 };
